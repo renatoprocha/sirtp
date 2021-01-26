@@ -73,3 +73,19 @@ app.post('/signup',(req,res)=>{
         return;
     })
 });
+app.get('/login/:username/:password',(req,res)=>{
+    mysqlConnection.query('SELECT password FROM users WHERE username = ? AND password = ? ',[req.params.username, req.params.password ],(err, rows, fields)=>{
+        if(!err){
+            if(rows != 0){
+                res.send("utilizador encontrado");
+            }
+            else{
+                res.send("Utilizador nao encontrado")
+            }
+            
+        }
+        
+        else
+        console.log(err);
+    })
+});
