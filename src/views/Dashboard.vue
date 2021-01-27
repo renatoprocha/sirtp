@@ -1,19 +1,35 @@
 <template>
-  <div class="Dash">
-    <AdminDash/>
-  </div>
+  <sidebar-menu :menu="menu" />
 </template>
 
 <script>
-// @ is an alias to /src
-import AdminDash from '@/components/AdminDash.vue'
-
-
-export default {
-  name: 'Dash',
-  components: {
-    AdminDash,
-
-  }
-}
+    export default {
+        data() {
+            return {
+                menu: [
+                    {
+                        header: true,
+                        title: 'Main Navigation',
+                        hiddenOnCollapse: true
+                    },
+                    {
+                        href: '/',
+                        title: 'Dashboard',
+                        icon: 'fas fa-user'
+                    },
+                    {
+                        href: '/charts',
+                        title: 'Charts',
+                        icon: 'fas fa-chart-area',
+                      
+                    },
+                    {
+                        href: '/',
+                        title: 'Dashboard',
+                        icon: 'fas fa-user'
+                    }
+                ]
+            }
+        }
+    }
 </script>
