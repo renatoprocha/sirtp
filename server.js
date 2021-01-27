@@ -22,7 +22,7 @@ mysqlConnection.connect((err)=>{
     if(!err)
     console.log('DB connection succeded.');
     else
-    console.log('DB connection failed \n Eror: '+ JSON.stringify(err, undefined,2));
+    console.log('DB connection failed \n Error: '+ JSON.stringify(err, undefined,2));
 })
 
 
@@ -62,25 +62,29 @@ app.delete('/users/:id',(req,res)=>{
 
 app.post('/signup',(req,res)=>{
     let emp = req.body;
-    var sql = "SET @username = ?; SET @password = ?; \
-    CALL adduser(@password, @username);"
-    mysqlConnection.query(sql, [emp.username, emp.password], (err, rows, fields)=>{
-        if(!err)
-        res.send(rows);
-        else
-        console.log(err);
-        res.send({success: false, message: 'utilizador ja existe', error: err});
-        return;
+    mysqlConnection.query('INSERT INTO users (username, password) VALUES (?, ?)',[emp.username, emp.password ],(err, rows, fields)=>{
+        if(!err){
+            res.send(rows);
+            console.log("Registado!");
+        }
+        else{
+            res.send("Utilizador já existe!");    
+            console.log(err);
+            console.log("Utilizador já existe!");
+        }
     })
 });
+
+//verifica login
+
 app.get('/login/:username/:password',(req,res)=>{
     mysqlConnection.query('SELECT password FROM users WHERE username = ? AND password = ? ',[req.params.username, req.params.password ],(err, rows, fields)=>{
         if(!err){
             if(rows != 0){
-                res.send("utilizador encontrado");
+                res.send({"result": 1});
             }
             else{
-                res.send("Utilizador nao encontrado")
+                res.send({"result": 0});
             }
             
         }

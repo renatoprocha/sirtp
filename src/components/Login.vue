@@ -5,7 +5,8 @@
         Password<input type="password" v-model="password" /><br>
         <button @click="fetch()">Login</button>
         
-        
+        <p>{{ resposta }}</p>
+
     </div>
    
     
@@ -19,21 +20,23 @@ export default {
         return {
             info: '' ,
             nome: '' ,
-            password: '',          
+            password: '', 
+            resposta: ''         
         }
     },
-  
+
+
     methods: {
 
     fetch() {  
       axios.get('http://localhost:3000/login/'+this.nome+'/'+this.password)
      .then((response) => {
      
-         if(response.data == "utilizador encontrado"){
-             alert("Login correto")
+         if(response.data.result == 1){
+             location.href = 'http://localhost:8080/Dashboard';
          }
          else{
-             alert("Login incorreto")
+             this.resposta = "Login incorreto!";
          }
      })
         
@@ -42,8 +45,12 @@ export default {
    
     }
 }
-       
-      
+ 
+    
+
+
     
 </script>
+
+
 
