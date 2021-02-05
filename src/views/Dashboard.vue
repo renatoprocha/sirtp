@@ -1,35 +1,17 @@
 <template>
-  <sidebar-menu :menu="menu" />
+  <div class="home">
+    <MenuAdmin/>
+  </div>
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                menu: [
-                    {
-                        header: true,
-                        title: 'Main Navigation',
-                        hiddenOnCollapse: true
-                    },
-                    {
-                        href: '/',
-                        title: 'Dashboard',
-                        icon: 'fas fa-user'
-                    },
-                    {
-                        href: '/charts',
-                        title: 'Charts',
-                        icon: 'fas fa-chart-area',
-                      
-                    },
-                    {
-                        href: '/',
-                        title: 'Dashboard',
-                        icon: 'fas fa-user'
-                    }
-                ]
-            }
-        }
-    }
+// @ is an alias to /src
+import MenuAdmin from '@/components/menuAdmin.vue'
+
+export default {
+  name: 'menuAdmin',
+  components: {
+    MenuAdmin
+  }
+}
 </script>
